@@ -15,7 +15,7 @@ call _SetEnv.bat %*
 if [%CLEAN%]==[1] (set CLEAN=-clean) else (set CLEAN=)
 
 REM - Set MAPS to the list of maps you want to cook, for example "MainMenuMap+FirstLevel+SecondLevel+TestMap" (DO NOT PUT SPACES ANYWHERE HERE!!!)
-set MAPS=
+rem set MAPS=
 
 if exist "%UPROJECT_FULLNAME%.uproject" goto Continue
 
@@ -34,7 +34,7 @@ if exist BUILD_EDITOR_FAILED.txt del BUILD_EDITOR_FAILED.txt
 if exist BUILD_GAME_FAILED.txt del BUILD_GAME_FAILED.txt
 if exist PACKAGING_FAILED.txt del PACKAGING_FAILED.txt
 
-if NOT "%MAPS%"=="" (goto CheckInstalledBuild)
+if NOT [%MAPS%]==[] (goto CheckInstalledBuild)
 
 echo.
 echo Warning - You don't have MAPS set, this will cause ALL content to be cooked!
@@ -110,7 +110,15 @@ goto PackageCommand
 
 set COMMANDLINE_OPT=-TargetPlatform=%PLATFORM% -configuration=%CONFIGUATION% %CLEAN% -nocompileeditor -unattended -utf8output -build -cook -stage -pak -prereqs -package -utf8output -archive
 
-set COMMANDLINE_OPTS_ALL=%INSTALLED% %BASICCONFIG% -cookflavor=%COOKFLAVOR% -map=%MAPS% %COMMANDLINE_OPT% -archivedirectory="%UPROJECT_PATH%\Saved\packagesOut" -createreleaseversion=1.0
+
+
+if [%MAPS%]==[] (
+	set MAPS_OPT=
+) else (
+	set MAPS_OPT=-map=%MAPS%
+)
+
+set COMMANDLINE_OPTS_ALL=%INSTALLED% %BASICCONFIG% -cookflavor=%COOKFLAVOR% %MAPS_OPT% %COMMANDLINE_OPT% -archivedirectory="%UPROJECT_PATH%\Saved\packagesOut" -createreleaseversion=1.0
 
 echo COMMANDLINE_OPTS_ALL: %COMMANDLINE_OPTS_ALL%
 
