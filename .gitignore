@@ -1,0 +1,73 @@
+Binaries
+DerivedDataCache
+Intermediate
+Saved
+#!Saved/Config/Windows/
+.vscode
+.vs
+*.VC.db
+*.opensdf
+*.opendb
+*.sdf
+*.sln
+*.suo
+*.xcodeproj
+*.xcworkspace
+# ignore an entire directory
+/content/AGR_PRO/
+/content/SideScrollerDemo/
+Content/Brushify/
+# Content/BallisticsVFX/
+Content/LongswordAnimsetPro/
+Content/LSM/
+Content/FPS_Assault_Pack/
+Content/PistolAnimsetPro/
+Content/PrototypeWeap/
+Content/FPSwordAndShield/
+Content/Zombie_01/
+Content/CC_Characters/
+# Content/DynamicSwordAnimset/
+Content/GKnight/
+Content/TrailPack/
+# Content/Ultimate_SFX_Bundle/
+Content/MilitaryWeapSilver/
+Content/Animated_DBShotgun/
+Content/Fire_Spells_Traps_VFXpack/
+Content/Loot_Anim_Set/
+Content/IBFPSFirearmsKitV2/
+Content/AbandonedFactory/
+Plugins/Auto_Setup_1.11/
+#/Build/
+/TPS.code-workspace
+/.ignore
+
+
+# Content/Arts/
+# Content/Maps/Horde_01/
+# Content/Resources/
+# Content/Test/TRYTest
+
+# Content/Arts/Scenes
+# Content/Arts/Scenes/Shared/Props
+
+
+Content/StarterContent/
+
+
+*.code-workspace
+
+/Source/Programs/UnrealPakViewer
+
+/Build/Android_ASTC/
+/Build/*/FileOpenOrder/
+
+CookerOpenOrder.log
+EditorOpenOrder.log
+pakchunklayers.txt
+
+
+
+#Content/Characters/ParagonFey
+#Content/Characters/ParagonGideon
+#Content/Characters/ParagonGreystone
+
