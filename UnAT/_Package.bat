@@ -118,6 +118,22 @@ if [%MAPS%]==[] (
 	set MAPS_OPT=-map=%MAPS%
 )
 
+set FOLDER_NAME=%PLATFORM%
+
+if /i [%PLATFORM%]==[Win64] (
+	set FOLDER_NAME=WindowsNoEditor
+) 
+
+
+echo removing "%UPROJECT_PATH%\Saved\Cooked\%FOLDER_NAME%"
+rmdir "%UPROJECT_PATH%\Saved\Cooked\%FOLDER_NAME%" /s/q
+
+echo removing "%UPROJECT_PATH%\Saved\StagedBuilds\%FOLDER_NAME%"
+rmdir "%UPROJECT_PATH%\Saved\StagedBuilds\%FOLDER_NAME%" /s/q
+
+echo removing "%UPROJECT_PATH%\Saved\packagesOut\%FOLDER_NAME%"
+rmdir "%UPROJECT_PATH%\Saved\packagesOut\%FOLDER_NAME%" /s/q
+
 set COMMANDLINE_OPTS_ALL=%INSTALLED% %BASICCONFIG% -cookflavor=%COOKFLAVOR% %MAPS_OPT% %COMMANDLINE_OPT% -archivedirectory="%UPROJECT_PATH%\Saved\packagesOut" -createreleaseversion=1.0
 
 echo COMMANDLINE_OPTS_ALL: %COMMANDLINE_OPTS_ALL%
