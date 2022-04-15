@@ -20,6 +20,7 @@ echo "                   				[-LLMCSV=<0|1>] [-LLMTARGETS=<Assets|AssetClasses>]
 echo "               [-Action=Build|BD [-clean=<0|1>] [-configuration=Development|Shipping]"
 echo "               [-Action=OpenSln|OS"
 echo "               [-Action=GenerateSln|GS"
+echo "               [-Action=CompileAllBlueprints|CBP"
 echo "               [-Action=|PakViewer|PV"
 echo "               [-Action=|Insights|IS]"
 echo "               [-Action=|FrontEnd|FE]"
@@ -72,6 +73,10 @@ if /i [%ACTION%]==[OS] goto OpenSln
 if /i [%ACTION%]==[GenerateSln] goto GenerateSln
 if /i [%ACTION%]==[GS] goto GenerateSln
 
+
+if /i [%ACTION%]==[CompileAllBlueprints] goto CompileAllBlueprints
+if /i [%ACTION%]==[CBP] goto CompileAllBlueprints
+
 if /i [%ACTION%]==[PakViewer] goto PakViewer
 if /i [%ACTION%]==[PV] goto PakViewer
 
@@ -120,6 +125,21 @@ goto Exit
 :GenerateSln
 
 call %UEENGINE_ROOT%\GenerateProjectFiles.bat %UPROJECT_FULLNAME%.uproject -Game -Engine
+
+goto Exit
+
+
+:CompileAllBlueprints
+
+rem if [%BPCOMPILERESULT%]==[] (
+rem 	set BPCOMPILERESULT=%UPROJECT_PATH%\Saved\BPCompileResult.txt
+rem )
+
+rem echo ****** BPCOMPILERESULT:     %BPCOMPILERESULT%
+
+echo ****** Result:              %UPROJECT_PATH%\Saved\Logs
+
+start %UEENGINE_ROOT%\Engine\Binaries\Win64\UE4Editor-Cmd.exe %UPROJECT_FULLNAME%.uproject -run=CompileAllBlueprints
 
 goto Exit
 

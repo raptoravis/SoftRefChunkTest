@@ -109,6 +109,8 @@ call %UEENGINE_ROOT%\Engine\Build\BatchFiles\Clean.bat CrashReportClient Win64 S
 if errorlevel 1 goto Error_CleanFailed
 call %UEENGINE_ROOT%\Engine\Build\BatchFiles\Clean.bat CrashReportClientEditor Win64 Shipping -WaitMutex -FromMSBuild
 if errorlevel 1 goto Error_CleanFailed
+rem call %UEENGINE_ROOT%\Engine\Build\BatchFiles\Clean.bat UnrealGameSync Win64 Shipping -WaitMutex -FromMSBuild
+rem if errorlevel 1 goto Error_CleanFailed
 
 echo.
 echo %date% %time% Cleaning Editor...
@@ -161,6 +163,41 @@ if errorlevel 1 goto Error_BuildToolsFailed
 if errorlevel 1 goto Error_BuildToolsFailed
 %UEENGINE_ROOT%\Engine\Binaries\DotNET\UnrealBuildTool.exe UnrealMultiUserServer Win64 Development -WaitMutex -FromMSBuild
 if errorlevel 1 goto Error_BuildToolsFailed
+
+if exist "%UEENGINE_ROOT%\Engine\Source\Programs\UnrealGameSync\UnrealGameSync.sln" (
+	rem devenv "%UEENGINE_ROOT%\Engine\Source\Programs\UnrealGameSync\UnrealGameSync.sln" /build Development /projectconfig Development
+	rem set MSBUILD=%WINDIR%\Microsoft.NET\Framework\v2.0.50727\MsBuild.exe
+	set MSBUILD2017="C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin\MSBuild.exe"
+	set MSBUILD2019="C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Current\Bin\MSBuild.exe"
+	
+	IF EXIST !MSBUILD2019! (
+		set MSBUILD=!MSBUILD2019!
+	) ELSE (
+		IF EXIST !MSBUILD2017! (
+			set MSBUILD=!MSBUILD2017!
+		) ELSE (
+			echo visual studio 2019/2017 needed
+		)
+	) 
+	
+	echo MSBUILD: !MSBUILD!
+	
+	IF EXIST "!MSBUILD!" (
+		rem !MSBUILD! "%UEENGINE_ROOT%\Engine\Source\Programs\UnrealGameSync\UnrealGameSync.sln" /t:UnrealGameSync\UnrealGameSync:Build /p:Configuration=Development
+		rem if errorlevel 1 goto Error_BuildToolsFailed
+	) else (
+		echo !MSBUILD! not exist
+	)
+) else (
+	echo UnrealGameSync not exist
+)
+
+if exist "%UEENGINE_ROOT%\Engine\Source\Programs\UnrealPakViewer\UnrealPakViewer.Target.cs" (
+	%UEENGINE_ROOT%\Engine\Binaries\DotNET\UnrealBuildTool.exe UnrealPakViewer Win64 Development -WaitMutex -FromMSBuild
+	rem if errorlevel 1 goto Error_BuildToolsFailed
+) else (
+	echo UnrealPakViewer not exist
+)
 
 REM - Other tools will get built by UBT when building editor (when -notools is NOT specified)
 

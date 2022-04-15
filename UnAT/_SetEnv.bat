@@ -6,8 +6,9 @@ set CURRENT_DIR=%~dp0
 
 call :read_params %*
 
+set UEENGINE_ROOT=E:\dev\ue4.my.git
 set UEENGINE_ROOT=D:\EpicGames\UE_4.27
-rem set UEENGINE_ROOT=E:\dev\ue4.my.git
+
 set UPROJECT_PATH=%CURRENT_DIR%..
 
 set USE_AUTODETECT=1
